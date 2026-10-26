@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamshid N K — Full Stack Developer</title>
+    <link rel="icon" type="image/png" href="images/favicon-logo.png">
+    <link rel="apple-touch-icon" href="images/favicon-logo.png">
+    <meta name="theme-color" content="#a855f7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    
+
+</head>
+
+<body>
+
+    <body>
+
+        <div id="loader">
+            <div class="loader-content">
+                <canvas id="loader-text-canvas" class="loader-text-canvas"></canvas>
+                <div class="loader-counter-wrap">
+                    <span class="loader-counter" id="loaderCounter">0</span>
+                    <span class="loader-counter-percent">%</span>
+                </div>
+                <div class="loader-status" id="loaderStatus">Welcome</div>
+                <div class="loader-bar-wrap">
+                    <div class="loader-bar" id="loaderBar"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="cursor-dot" id="cursorDot"></div>
+        <div class="cursor-ring" id="cursorRing"></div>
+
+        <!-- ==================== NAVBAR ==================== -->
+        <header id="header">
+            <nav class="nav" aria-label="Main navigation">
+                <a href="#home" class="logo">
+                    <div class="logo-icon"><img src="images/Logo.png" alt="JNK logo"></div>
+                    <span class="logo-text">Jamshid</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active"><em>01</em>Home</a></li>
+                    <li><a href="#skills"><em>02</em>Skills</a></li>
+                    <li><a href="#work"><em>03</em>Services</a></li>
+                    <li><a href="#education"><em>04</em>Education</a></li>
+                    <li><a href="#contact"><em>05</em>Contact</a></li>
+                    <span class="nav-indicator" aria-hidden="true"></span>
+                </ul>
+                <div class="nav-actions">
+                    <a href="my%20cv.pdf" class="btn-nav-pill">
+                        <i class="fas fa-download" style="font-size:.75rem;"></i> Download CV
+                    </a>
+                </div>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <span class="nav-progress" aria-hidden="true"></span>
+            </nav>
+        </header>
+
+        <!-- ===== MOBILE MENU ===== -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#work">Services</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-actions">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jamshidnk127@gmail.com" target="_blank"
+                    rel="noopener" class="btn btn-primary"><i class="fas fa-envelope"></i> Hire Me</a>
+                <a href="my%20cv.pdf" class="btn btn-ghost"><i class="fas fa-download"></i> Download CV</a>
+            </div>
+        </div>
+
+        <!-- ==================== HOME / HERO ==================== -->
+        <section id="home">
+            <div class="hero">
+                <div class="particle" data-mouse="34" data-parallax="-0.14"></div>
+                <div class="particle" data-mouse="-26" data-parallax="0.10"></div>
+                <div class="particle" data-mouse="18" data-parallax="-0.06"></div>
+
+                <div class="hero-inner">
+                    <div class="hero-text" data-mouse="-8" data-parallax="0.12" data-parallax-scroll>
+                        <div class="hero-badge">✦ Available for Work</div>
+                        <h1 class="hero-name">Jamshid N K</h1>
+                        <p class="hero-role">
+                            <span class="typewriter"></span>
+                        </p>
+                        <p class="hero-desc" data-split-words>Crafting modern, high-quality digital solutions.
+                            Specialized in Python, Django,
+                            and JavaScript with expertise in responsive web design and interactive experiences.</p>
+                        <div class="hero-pills">
+                            <span class="pill"><i class="fas fa-code"></i> Full Stack Dev</span>
+                            <span class="pill"><i class="fas fa-graduation-cap"></i> KELTRON Certified</span>
+                            <span class="pill"><i class="fas fa-location-dot"></i> Kozhikode, Kerala</span>
+                        </div>
+                        <div class="hero-btns">
+                            <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
+                            <a href="my%20cv.pdf" class="btn btn-ghost"><i class="fas fa-download"></i> Download CV</a>
+                        </div>
+                    </div>
+
+                    <div class="hero-portrait" data-cursor="Touch" data-mouse="16" data-parallax="0.2"
+                        data-parallax-scroll>
+                        <div class="magnet-wrapper" id="portrait-wrapper">
+                            <img id="portrait-img" src="images/ai.png" alt="Jamshid N K" crossorigin="anonymous">
+                            <canvas id="portrait-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-cue">
+                    <span>Scroll</span>
+                    <div class="line"></div>
+                </div>
+
+                <div class="wave-sep" style="position:absolute;bottom:-1px;left:0;right:0;">
+                    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="homeWaveGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#ff4d88" />
+                                <stop offset="100%" stop-color="#a855f7" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,0 C240,70 480,10 720,45 C960,80 1200,15 1440,0 L1440,90 L0,90 Z" fill="#111118" />
+                        <path d="M0,0 C240,70 480,10 720,45 C960,80 1200,15 1440,0" fill="none"
+                            stroke="url(#homeWaveGrad)" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SKILLS ==================== -->
+        <section id="skills">
+            <div id="skills-video-bg">
+                <video id="skills-video" src="dark-matter.mp4" poster="video-fallback.jpg" muted loop playsinline
+                    preload="none"></video>
+            </div>
+
+            <div class="section-inner">
+                <div class="modern-reveal-text">
+                    <div class="sec-tag">✦ Expertise</div>
+                </div>
+                <div class="skills-title-stage">
+                    <h2 class="sec-title split-title" data-split-title>
+                        <span class="split-line from-right"><span>Technical</span></span>
+                        <span class="split-line from-left"><span>Skills</span></span>
+                    </h2>
+                    <div class="floating-logos" id="skillsFloatingLogos" aria-hidden="true">
+                        <div class="floating-logo fl-html"><i class="fab fa-html5"></i></div>
+                        <div class="floating-logo fl-css"><i class="fab fa-css3-alt"></i></div>
+                        <div class="floating-logo fl-js"><i class="fab fa-js"></i></div>
+                        <div class="floating-logo fl-python"><i class="fab fa-python"></i></div>
+                        <div class="floating-logo fl-mongo"><i class="fas fa-leaf"></i></div>
+                        <div class="floating-logo fl-bootstrap"><i class="fab fa-bootstrap"></i></div>
+                        <div class="floating-logo fl-mysql"><i class="fas fa-database"></i></div>
+                        <div class="floating-logo fl-django"><i class="fas fa-server"></i></div>
+                    </div>
+                </div>
+                <div class="modern-reveal-text">
+                    <p class="sec-sub">Proficient in modern web technologies and frameworks</p>
+                </div>
+
+                <div class="sk-stage" id="skStage">
+                    <div class="sk-col left">
+                        <div class="sk-card" data-frame="1" data-name="HTML5" data-color="#ff6b3d"
+                            style="--_c:#ff6b3d;--sk-d:0.00s">
+                            <div class="sk-ico"><i class="fab fa-html5"></i></div>
+                            <div class="sk-txt">
+                                <h3>HTML5</h3>
+                                <p>Semantic markup and accessible, responsive structure for modern web apps.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="20" data-name="CSS &amp; Animations" data-color="#4d9dff"
+                            style="--_c:#4d9dff;--sk-d:0.08s">
+                            <div class="sk-ico"><i class="fab fa-css3-alt"></i></div>
+                            <div class="sk-txt">
+                                <h3>CSS &amp; Animations</h3>
+                                <p>Advanced layouts, transitions and visual effects with modern CSS.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="33" data-name="JavaScript" data-color="#f5d742"
+                            style="--_c:#f5d742;--sk-d:0.16s">
+                            <div class="sk-ico"><i class="fab fa-js"></i></div>
+                            <div class="sk-txt">
+                                <h3>JavaScript</h3>
+                                <p>ES6+, interactive animations, canvas graphics and DOM work.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="50" data-name="Python" data-color="#ffd452"
+                            style="--_c:#ffd452;--sk-d:0.24s">
+                            <div class="sk-ico"><i class="fab fa-python"></i></div>
+                            <div class="sk-txt">
+                                <h3>Python</h3>
+                                <p>Backend logic and automation with clean, maintainable code.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sk-robot" id="skRobot" data-cursor="Poke" data-scrub
+                        style="--scrub-y:80px;--scrub-s:.12">
+                        <div class="sk-glow"></div>
+                        <div class="sk-ring"></div>
+                        <div class="sk-bubble" id="skBubble">Hi! 👋</div>
+                        <div class="sk-wrap breathe" id="skWrap">
+                            <canvas id="skCanvas" aria-label="Interactive robot showing my skills" role="img"></canvas>
+                        </div>
+                        <div class="sk-pill"><i class="fas fa-circle"></i><span>Showing <b id="skLabel">HTML5</b></span>
+                        </div>
+                    </div>
+
+                    <div class="sk-col right">
+                        <div class="sk-card" data-frame="65" data-name="MySQL" data-color="#4db8ff"
+                            style="--_c:#4db8ff;--sk-d:0.00s">
+                            <div class="sk-ico"><i class="fas fa-database"></i></div>
+                            <div class="sk-txt">
+                                <h3>MySQL</h3>
+                                <p>Relational design, query optimization and complex joins.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="79" data-name="Django" data-color="#3fd18a"
+                            style="--_c:#3fd18a;--sk-d:0.08s">
+                            <div class="sk-ico"><i class="fas fa-server"></i></div>
+                            <div class="sk-txt">
+                                <h3>Django</h3>
+                                <p>Full-stack apps with MVC, REST APIs and solid data modelling.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="96" data-name="Photoshop" data-color="#31a8ff"
+                            style="--_c:#31a8ff;--sk-d:0.16s">
+                            <div class="sk-ico"><i class="fas fa-pen-nib"></i></div>
+                            <div class="sk-txt">
+                                <h3>Photoshop</h3>
+                                <p>Image editing and UI asset design for polished visuals.</p>
+                            </div>
+                        </div>
+                        <div class="sk-card" data-frame="108" data-name="Bootstrap" data-color="#b48bff"
+                            style="--_c:#b48bff;--sk-d:0.24s">
+                            <div class="sk-ico"><i class="fab fa-bootstrap"></i></div>
+                            <div class="sk-txt">
+                                <h3>Bootstrap</h3>
+                                <p>Mobile-first UI with the grid, components and utilities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wave-sep">
+                <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="skillsWaveGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ff4d88" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,40 C360,0 720,80 1080,30 C1260,10 1380,50 1440,40 L1440,80 L0,80 Z" fill="#0a0a0a" />
+                    <path d="M0,40 C360,0 720,80 1080,30 C1260,10 1380,50 1440,40" fill="none"
+                        stroke="url(#skillsWaveGrad)" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- ==================== SERVICES ==================== -->
+        <section id="work">
+            <div class="section-inner">
+                <div class="work-head">
+                    <div class="work-copy">
+                        <div class="modern-reveal-text">
+                            <div class="sec-tag">✦ Services</div>
+                        </div>
+                        <h2 class="sec-title split-title" data-split-title>
+                            <span class="split-line from-right"><span>What I</span></span>
+                            <span class="split-line from-left"><span>Can Do</span></span>
+                        </h2>
+                    </div>
+                    <p class="sec-sub">Websites that look sharp, work on every device and help your business grow.</p>
+                </div>
+
+                <div class="svc-grid">
+                    <article class="svc-card" data-cursor="View">
+                        <div class="svc-media">
+                            <img src="images/svc-design.webp" loading="lazy"
+                                alt="A travel website design shown on a laptop and a phone">
+                            <span class="svc-num">01</span>
+                        </div>
+                        <div class="svc-icon"><i class="fas fa-pen-ruler"></i></div>
+                        <div class="svc-body">
+                            <h3 class="svc-title"><span>Design</span>I Design Websites</h3>
+                            <p class="svc-desc" data-split-words>Clean, modern website designs built around your brand
+                                and your visitors,
+                                from the first sketch to the final layout.</p>
+                            <ul class="svc-list">
+                                <li><i class="fas fa-check"></i>Custom, brand-focused UI</li>
+                                <li><i class="fas fa-check"></i>Modern, mobile-first layouts</li>
+                                <li><i class="fas fa-check"></i>Smooth, easy-to-use experience</li>
+                            </ul>
+                            <a class="svc-link" href="#contact">Let's talk <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="svc-card" data-cursor="View">
+                        <div class="svc-media">
+                            <img src="images/svc-ecommerce.webp" loading="lazy"
+                                alt="Falcon Kellys streetwear e-commerce website shown on a laptop and a phone">
+                            <span class="svc-num">02</span>
+                        </div>
+                        <div class="svc-icon"><i class="fas fa-bag-shopping"></i></div>
+                        <div class="svc-body">
+                            <h3 class="svc-title"><span>E-Commerce</span>I Create Responsive E&#8209;Commerce Websites
+                            </h3>
+                            <p class="svc-desc" data-split-words>Fast, good-looking online stores that work perfectly on
+                                every screen and are
+                                ready to start selling.</p>
+                            <ul class="svc-list">
+                                <li><i class="fas fa-check"></i>Works on phone, tablet and desktop</li>
+                                <li><i class="fas fa-check"></i>Clear product showcase</li>
+                                <li><i class="fas fa-check"></i>Fast and ready to sell</li>
+                            </ul>
+                            <div class="svc-actions">
+                                <a class="svc-demo" data-cursor="Open" href="https://falcon-kellys.com" target="_blank"
+                                    rel="noopener">View live demo <i class="fas fa-arrow-up-right-from-square"></i></a>
+                                <a class="svc-link" href="#contact">Let's talk <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="svc-card" data-cursor="View">
+                        <div class="svc-media">
+                            <img src="images/svc-portfolio.webp" loading="lazy"
+                                alt="A developer portfolio website shown on a laptop and a phone">
+                            <span class="svc-num">03</span>
+                        </div>
+                        <div class="svc-icon"><i class="fas fa-user-astronaut"></i></div>
+                        <div class="svc-body">
+                            <h3 class="svc-title"><span>Portfolio</span>I Create Portfolio Websites</h3>
+                            <p class="svc-desc" data-split-words>Personal portfolio sites that show your work and your
+                                personality, with a
+                                look that is memorable and professional.</p>
+                            <ul class="svc-list">
+                                <li><i class="fas fa-check"></i>Show your work and skills</li>
+                                <li><i class="fas fa-check"></i>Standout personal branding</li>
+                                <li><i class="fas fa-check"></i>Smooth animations and clean code</li>
+                            </ul>
+                            <div class="svc-actions">
+                                <a class="svc-demo" data-cursor="Open" href="demos/portfolio/index.html" target="_blank"
+                                    rel="noopener">View
+                                    live demo <i class="fas fa-arrow-up-right-from-square"></i></a>
+                                <a class="svc-link" href="#contact">Let's talk <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="work-cta" data-scrub>
+                    <p><b>Have a project in mind?</b> Let's build something great together.</p>
+                    <a class="btn-nav-pill" href="#contact">Start a project <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="wave-sep work-wave">
+                <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="workWaveGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ff4d88" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,40 C300,0 600,80 900,36 C1100,8 1300,60 1440,30 L1440,80 L0,80 Z" fill="var(--ink)" />
+                    <path d="M0,40 C300,0 600,80 900,36 C1100,8 1300,60 1440,30" fill="none" stroke="url(#workWaveGrad)"
+                        stroke-width="2.5" vector-effect="non-scaling-stroke" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- ==================== EDUCATION ==================== -->
+        <section id="education">
+            <div class="particle" data-parallax="-0.12"></div>
+            <div class="section-inner">
+                <div class="modern-reveal-text">
+                    <div class="sec-tag">✦ Background</div>
+                </div>
+                <div class="skills-title-stage">
+                    <h2 class="sec-title split-title" data-split-title>
+                        <span class="split-line from-right"><span>Education</span></span>
+                        <span class="split-line from-left"><span>&amp; Certifications</span></span>
+                    </h2>
+                    <div class="floating-logos" id="eduFloatingLogos" aria-hidden="true">
+                        <div class="floating-logo fl-cap"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="floating-logo fl-cert"><i class="fas fa-certificate"></i></div>
+                        <div class="floating-logo fl-book"><i class="fas fa-book-open"></i></div>
+                        <div class="floating-logo fl-uni"><i class="fas fa-university"></i></div>
+                        <div class="floating-logo fl-award"><i class="fas fa-award"></i></div>
+                        <div class="floating-logo fl-chalk"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div class="floating-logo fl-pen"><i class="fas fa-pen-nib"></i></div>
+                        <div class="floating-logo fl-atom"><i class="fas fa-atom"></i></div>
+                    </div>
+                </div>
+                <div class="modern-reveal-text">
+                    <p class="sec-sub">Building a strong foundation for professional growth</p>
+                </div>
+
+                <div class="timeline modern-reveal-container">
+                    <div class="timeline-line-wrapper">
+                        <svg class="tl-rail" id="tlRail" aria-hidden="true" focusable="false">
+                            <defs>
+                                <linearGradient id="tlGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0"
+                                    y2="1000">
+                                    <stop offset="0" stop-color="#3fd8ff" />
+                                    <stop offset=".22" stop-color="#5b6cff" />
+                                    <stop offset=".5" stop-color="#b04fd8" />
+                                    <stop offset=".75" stop-color="#ff4d88" />
+                                    <stop offset="1" stop-color="#ff3b4e" />
+                                </linearGradient>
+                                <filter id="tlGlowBig" filterUnits="userSpaceOnUse" x="-200" y="-100" width="1600"
+                                    height="1600">
+                                    <feGaussianBlur stdDeviation="9" />
+                                </filter>
+                                <filter id="tlGlowSm" filterUnits="userSpaceOnUse" x="-200" y="-100" width="1600"
+                                    height="1600">
+                                    <feGaussianBlur stdDeviation="5" />
+                                </filter>
+                                <clipPath id="tlReveal">
+                                    <rect id="tlRevealRect" x="-500" y="-100" width="3000" height="0" />
+                                </clipPath>
+                            </defs>
+                            <path id="tlTrack" class="tl-dashes tl-track" />
+                            <g clip-path="url(#tlReveal)">
+                                <path id="tlGlowPath" class="tl-glow" />
+                                <path id="tlGlowPath2" class="tl-glow" />
+                                <path id="tlBright" class="tl-dashes" />
+                            </g>
+                            <g id="tlHead">
+                                <circle r="30" fill="url(#tlGrad)" opacity=".16" />
+                                <circle r="21" fill="url(#tlGrad)" opacity=".30" />
+                                <circle r="14" fill="url(#tlGrad)" opacity=".95" />
+                                <circle r="5.5" fill="#fff" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="tl-item scroll-reveal">
+                        <span class="timeline-node-pulse" aria-hidden="true"></span>
+                        <div class="tl-dot"></div>
+                        <div class="tl-card" style="--tl-accent: #ff4d88;">
+                            <div class="tl-badge"><i class="fas fa-laptop-code"></i></div>
+                            <h3 class="zoom-fade">Diploma in Full Stack Web Design & Development</h3>
+                            <div class="tl-date"><i class="fas fa-calendar-alt"></i> Completed: April 2025</div>
+                            <p class="zoom-fade zoom-fade-d1"><strong>KELTRON — Calicut</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="tl-item scroll-reveal">
+                        <span class="timeline-node-pulse" aria-hidden="true"></span>
+                        <div class="tl-dot"></div>
+                        <div class="tl-card" style="--tl-accent: #a855f7;">
+                            <div class="tl-badge"><i class="fas fa-landmark"></i></div>
+                            <h3 class="zoom-fade">Bachelor of Arts (B.A.) in History</h3>
+                            <div class="tl-date"><i class="fas fa-calendar-alt"></i> Graduated: November 2022</div>
+                            <p class="zoom-fade zoom-fade-d1"><strong>University of Calicut</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="tl-item scroll-reveal">
+                        <span class="timeline-node-pulse" aria-hidden="true"></span>
+                        <div class="tl-dot"></div>
+                        <div class="tl-card" style="--tl-accent: #4d9dff;">
+                            <div class="tl-badge"><i class="fas fa-school"></i></div>
+                            <h3 class="zoom-fade">Board of Higher Secondary Education</h3>
+                            <div class="tl-date"><i class="fas fa-calendar-alt"></i> March 2019</div>
+                            <p class="zoom-fade zoom-fade-d1"><strong>Humanities Group</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="tl-item scroll-reveal">
+                        <span class="timeline-node-pulse" aria-hidden="true"></span>
+                        <div class="tl-dot"></div>
+                        <div class="tl-card" style="--tl-accent: #4dd68c;">
+                            <div class="tl-badge"><i class="fas fa-book-open"></i></div>
+                            <h3 class="zoom-fade">Board Secondary Education (SSLC)</h3>
+                            <div class="tl-date"><i class="fas fa-calendar-alt"></i> March 2017</div>
+                        </div>
+                    </div>
+                    <div class="timeline-scroll-hint" aria-hidden="true"><i class="fas fa-chevron-down"></i><span>Scroll
+                            to
+                            explore</span></div>
+                </div>
+            </div>
+
+            <div class="wave-sep">
+                <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="eduWaveGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ff4d88" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,20 C300,80 600,0 900,50 C1100,80 1300,20 1440,30 L1440,80 L0,80 Z" fill="#111118" />
+                    <path d="M0,20 C300,80 600,0 900,50 C1100,80 1300,20 1440,30" fill="none" stroke="url(#eduWaveGrad)"
+                        stroke-width="2.5" vector-effect="non-scaling-stroke" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT ==================== -->
+        <section id="contact">
+            <div id="contact-video-bg">
+                <video id="contact-video" src="dark-matter.mp4" muted loop playsinline preload="none"></video>
+            </div>
+
+            <div class="particle" data-parallax="0.10"></div>
+            <div class="section-inner">
+
+                <div class="editorial-contact-layout">
+                    <div class="contact-showroom-left">
+                        <div class="modern-reveal-text">
+                            <div class="sec-tag">✦ Let's Connect</div>
+                        </div>
+                        <h2 class="sec-title split-title" data-split-title>
+                            <span class="split-line from-right"><span>Start A</span></span>
+                            <span class="split-line from-left"><span>Project.</span></span>
+                        </h2>
+                        <div class="modern-reveal-text">
+                            <p class="sec-sub">I'm currently opening up slots for new freelance systems engineering,
+                                full-stack builds, or agency employment options.</p>
+                        </div>
+
+                        <div class="modern-reveal-container" data-delay="0.1">
+                            <div class="premium-email-hero-box">
+                                <span class="box-label">Direct Communication Line</span>
+                                <!-- This link forces Chrome/browsers to open a new Gmail compose window directly -->
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jamshidnk127@gmail.com"
+                                    target="_blank" class="hero-email-link">
+                                    jamshidnk127@gmail.com <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-links-column-right modern-reveal-container">
+                        <a href="tel:+918606437933" class="editorial-contact-card" data-delay="0.05"
+                            style="--contact-card-accent: #ff6b52;">
+                            <div class="card-core-info">
+                                <i class="fas fa-phone"></i>
+                                <div class="card-meta-text">
+                                    <span class="zoom-fade">Voice Call</span>
+                                    <p class="zoom-fade zoom-fade-d1">+91 8606437933</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right card-action-arrow"></i>
+                        </a>
+
+                        <a href="https://wa.me/918606437933" target="_blank" rel="noopener noreferrer"
+                            class="editorial-contact-card" data-delay="0.12" style="--contact-card-accent: #4dd68c;">
+                            <div class="card-core-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <div class="card-meta-text">
+                                    <span class="zoom-fade">Instant Chat</span>
+                                    <p class="zoom-fade zoom-fade-d1">WhatsApp Messenger</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right card-action-arrow"></i>
+                        </a>
+
+                        <a href="https://instagram.com/jam_shid_.14" target="_blank" rel="noopener noreferrer"
+                            class="editorial-contact-card" data-delay="0.19" style="--contact-card-accent: #b48bff;">
+                            <div class="card-core-info">
+                                <i class="fab fa-instagram"></i>
+                                <div class="card-meta-text">
+                                    <span class="zoom-fade">Social Channel</span>
+                                    <p class="zoom-fade zoom-fade-d1">@jam_shid_.14</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right card-action-arrow"></i>
+                        </a>
+
+                        <div class="editorial-contact-card static-card" data-delay="0.26"
+                            style="--contact-card-accent: #4d9dff;">
+                            <div class="card-core-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="card-meta-text">
+                                    <span class="zoom-fade">Main Base Location</span>
+                                    <label class="zoom-fade zoom-fade-d1">Kozhikode, Kerala, India</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="wave-sep contact-wave">
+                <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="contactWaveGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ff4d88" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,30 C320,70 640,0 960,40 C1160,66 1320,10 1440,36 L1440,80 L0,80 Z" fill="#060609" />
+                    <path d="M0,30 C320,70 640,0 960,40 C1160,66 1320,10 1440,36" fill="none"
+                        stroke="url(#contactWaveGrad)" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="editorial-footer">
+            <div class="ft-marquee" aria-hidden="true" data-scrub>
+                <div class="ft-track">
+                    <div style="display:flex"><span>Web Design <b>✦</b></span><span>Responsive Websites
+                            <b>✦</b></span><span>E-Commerce <b>✦</b></span><span>Portfolio Sites
+                            <b>✦</b></span><span>Full
+                            Stack <b>✦</b></span><span>Python &amp; Django <b>✦</b></span></div>
+                    <div style="display:flex"><span>Web Design <b>✦</b></span><span>Responsive Websites
+                            <b>✦</b></span><span>E-Commerce <b>✦</b></span><span>Portfolio Sites
+                            <b>✦</b></span><span>Full
+                            Stack <b>✦</b></span><span>Python &amp; Django <b>✦</b></span></div>
+                </div>
+            </div>
+
+            <div class="ft-inner">
+                <div class="ft-col ft-col-brand" data-scrub>
+                    <a href="#home" class="ft-brand"><img src="images/Logo.png" alt="JNK logo"><span>Jamshid</span></a>
+                    <p class="ft-about" data-split-words>Full stack web developer building fast, modern and responsive
+                        websites that look
+                        sharp and help your business grow.</p>
+                    <span class="ft-status"><i></i>Available for new projects</span>
+                    <div class="ft-social">
+                        <a href="https://instagram.com/jam_shid_.14" target="_blank" rel="noopener noreferrer"
+                            aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/918606437933" target="_blank" rel="noopener noreferrer"
+                            aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="mailto:jamshidnk127@gmail.com" aria-label="Email"><i
+                                class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="ft-col" data-scrub>
+                    <span class="ft-title">Navigate</span>
+                    <ul class="ft-list">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#work">Services</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="ft-col" data-scrub>
+                    <span class="ft-title">What I Do</span>
+                    <ul class="ft-list">
+                        <li><a href="#work">Website Design</a></li>
+                        <li><a href="#work">E-Commerce Sites</a></li>
+                        <li><a href="#work">Portfolio Sites</a></li>
+                        <li><a href="https://www.falconkellys.com" target="_blank" rel="noopener noreferrer">Falcon
+                                Kellys</a></li>
+                    </ul>
+                </div>
+
+                <div class="ft-col ft-col-contact" data-scrub>
+                    <span class="ft-title">Get In Touch</span>
+                    <div class="ft-contact">
+                        <a href="mailto:jamshidnk127@gmail.com"><i
+                                class="fa-solid fa-envelope"></i>jamshidnk127@gmail.com</a>
+                        <a href="tel:+918606437933"><i class="fa-solid fa-phone"></i>+91 86064 37933</a>
+                        <p><i class="fa-solid fa-location-dot"></i>Kozhikode, Kerala, India</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ft-bar" data-scrub style="--scrub-y:30px">
+                <p>&copy; 2026 <b>Jamshid N K</b>. All rights reserved.</p>
+                <a href="#home" class="ft-top" aria-label="Back to top">Back to top <i
+                        class="fa-solid fa-arrow-up"></i></a>
+            </div>
+            <span class="ft-mega" aria-hidden="true">Jamshid</span>
+        </footer>
+
+
+        <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+        <script src="index.js"></script>
+
+    </body>
+
+</html>
