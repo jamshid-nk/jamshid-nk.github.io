@@ -5474,3 +5474,75 @@ html.motion-on:not(.is-ready) .nav-actions {
         translate: none;
     }
 }
+
+/* ==========================================================================
+   15 · PROJECTS — status badges, tech chips, notes (no live-demo buttons)
+   ========================================================================== */
+
+.svc-title span .svc-status {
+    display: inline-block;
+    font-style: normal;
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    padding: 3px 10px;
+    margin-left: 6px;
+    border-radius: 50px;
+    vertical-align: 1px;
+}
+
+.svc-status.wip {
+    color: #f5c842;
+    background: rgba(245, 200, 66, .12);
+    border: 1px solid rgba(245, 200, 66, .45);
+}
+
+.svc-status.done {
+    color: #4dd68c;
+    background: rgba(77, 214, 140, .12);
+    border: 1px solid rgba(77, 214, 140, .45);
+}
+
+.svc-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.svc-tech span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .6px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    color: rgba(255, 255, 255, .82);
+    background: rgba(168, 85, 247, .12);
+    border: 1px solid rgba(168, 85, 247, .35);
+    transition: border-color .3s, background .3s;
+}
+
+.svc-card:hover .svc-tech span {
+    border-color: rgba(255, 77, 136, .55);
+    background: rgba(255, 77, 136, .1);
+}
+
+.svc-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: .3px;
+    color: rgba(255, 255, 255, .8);
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .14);
+}
+
+.svc-note i {
+    color: var(--rose);
+    font-size: .75rem;
+}

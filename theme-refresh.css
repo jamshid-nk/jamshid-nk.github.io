@@ -1,0 +1,280 @@
+/* ==========================================================================
+   THEME REFRESH — loads AFTER index.css and only overrides / adds styles.
+   To undo everything: delete the <link> to this file in index.html.
+   ========================================================================== */
+
+:root {
+    --cyan: #3fd8ff;
+    --grad: linear-gradient(135deg, #ff4d88 0%, #a855f7 55%, #3fd8ff 100%);
+    --grad-text: linear-gradient(120deg, #ffffff 0%, #ff8fb8 35%, #c08bff 68%, #6fe3ff 100%);
+    --glass: rgba(14, 14, 24, .72);
+    --glass-border: rgba(255, 255, 255, .10);
+}
+
+/* ---------- 1 · Global polish ---------- */
+::selection {
+    background: rgba(255, 77, 136, .45);
+    color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff4d88, #a855f7, #3fd8ff);
+}
+
+:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* subtle film-grain over the whole site (very light, no blend mode = cheap) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- 2 · Navbar ---------- */
+.nav-links li a.active {
+    background: rgba(255, 255, 255, .06);
+    border-radius: 100px;
+}
+
+.nav-links li a {
+    border-radius: 100px;
+}
+
+/* ---------- 3 · Hero ---------- */
+.hero {
+    background:
+        radial-gradient(60% 50% at 80% 20%, rgba(63, 216, 255, .10), transparent 70%),
+        radial-gradient(55% 55% at 10% 90%, rgba(255, 77, 136, .14), transparent 70%),
+        linear-gradient(135deg, #07070b 0%, #14142a 55%, #261538 100%);
+}
+
+/* faint grid that fades out toward the edges */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+}
+
+.hero-name {
+    background: var(--grad-text);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: nameShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes nameShift {
+    to {
+        background-position: 100% 0;
+    }
+}
+
+.hero-badge {
+    background: linear-gradient(135deg, rgba(63, 216, 255, .10), rgba(255, 77, 136, .12));
+    border-color: rgba(63, 216, 255, .35);
+    color: #8eeaff;
+    box-shadow: 0 0 28px -8px rgba(63, 216, 255, .5);
+}
+
+.pill {
+    background: rgba(255, 255, 255, .05);
+    border-color: var(--glass-border);
+}
+
+.pill:hover {
+    transform: translateY(-2px);
+    border-color: rgba(63, 216, 255, .5);
+    color: #8eeaff;
+    background: rgba(63, 216, 255, .07);
+}
+
+.pill i {
+    color: var(--cyan);
+}
+
+/* ---------- 4 · Buttons ---------- */
+.btn-primary,
+.btn-nav-pill {
+    background: var(--grad);
+    background-size: 180% 100%;
+    background-position: 0 0;
+    transition: background-position .6s var(--ease-out), transform .4s var(--ease-spring),
+        box-shadow .4s, border-radius .5s var(--ease-out);
+}
+
+.btn-primary:hover,
+.btn-nav-pill:hover {
+    background-position: 100% 0;
+}
+
+.btn-ghost {
+    border-color: rgba(255, 255, 255, .25);
+    backdrop-filter: none;
+}
+
+.btn-ghost:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+/* ---------- 5 · Section headings ---------- */
+.sec-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #8eeaff;
+    border-color: rgba(63, 216, 255, .35);
+    background: rgba(63, 216, 255, .07);
+}
+
+.sec-title,
+.split-line span {
+    background: var(--grad-text);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sec-sub {
+    color: rgba(255, 255, 255, .6);
+}
+
+/* ---------- 6 · Skills ---------- */
+.sk-card {
+    border-color: var(--glass-border);
+    border-radius: 24px;
+}
+
+.sk-card.active,
+.sk-card:hover {
+    box-shadow: 0 24px 60px -22px var(--_c), inset 0 1px 0 rgba(255, 255, 255, .15),
+        inset 0 0 0 1px color-mix(in oklab, var(--_c) 30%, transparent);
+}
+
+.sk-pill {
+    border-color: rgba(63, 216, 255, .3);
+}
+
+/* ---------- 7 · Projects ---------- */
+.svc-card {
+    background: linear-gradient(180deg, rgba(22, 22, 34, .95) 0%, rgba(10, 10, 16, .95) 100%);
+    border-color: var(--glass-border);
+}
+
+.svc-card:hover {
+    border-color: rgba(255, 255, 255, .18);
+}
+
+.svc-title span {
+    color: #8eeaff;
+}
+
+.svc-tech span {
+    background: rgba(63, 216, 255, .08);
+    border-color: rgba(63, 216, 255, .30);
+}
+
+.svc-card:hover .svc-tech span {
+    border-color: rgba(255, 77, 136, .55);
+    background: rgba(255, 77, 136, .10);
+}
+
+.svc-list i {
+    background: rgba(63, 216, 255, .15);
+    border-color: rgba(63, 216, 255, .45);
+    color: #aef0ff;
+}
+
+.svc-demo {
+    background: var(--grad);
+}
+
+.work-cta {
+    background: linear-gradient(135deg, rgba(63, 216, 255, .08), rgba(168, 85, 247, .08) 50%, rgba(255, 77, 136, .08));
+    border-color: rgba(255, 255, 255, .14);
+}
+
+/* ---------- 8 · Education ---------- */
+.tl-date {
+    letter-spacing: 1px;
+}
+
+.tl-card {
+    border-radius: 24px;
+}
+
+/* ---------- 9 · Contact ---------- */
+.premium-email-hero-box {
+    border-color: rgba(63, 216, 255, .18);
+}
+
+.premium-email-hero-box:hover {
+    border-color: rgba(63, 216, 255, .5);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5), 0 10px 40px rgba(63, 216, 255, .10);
+}
+
+.box-label {
+    color: #8eeaff;
+}
+
+.hero-email-link {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-email-link i {
+    -webkit-text-fill-color: rgba(255, 255, 255, .35);
+}
+
+.premium-email-hero-box:hover .hero-email-link i {
+    -webkit-text-fill-color: var(--cyan);
+}
+
+/* ---------- 10 · Footer ---------- */
+.editorial-footer::before {
+    background:
+        radial-gradient(45% 55% at 12% 20%, rgba(255, 77, 136, .13), transparent 70%),
+        radial-gradient(45% 55% at 90% 35%, rgba(168, 85, 247, .15), transparent 70%),
+        radial-gradient(35% 45% at 55% 0%, rgba(63, 216, 255, .08), transparent 70%);
+}
+
+.ft-title {
+    color: #8eeaff;
+}
+
+.ft-mega {
+    background: linear-gradient(180deg, rgba(63, 216, 255, .22), rgba(168, 85, 247, .03));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* ---------- 11 · Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-name,
+    .btn-primary,
+    .btn-nav-pill {
+        animation: none;
+        transition: none;
+    }
+}

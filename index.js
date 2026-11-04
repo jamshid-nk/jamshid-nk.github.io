@@ -1305,7 +1305,12 @@
 
         const TOTAL = 120;
         const SRC = { x: 760, y: 150, w: 1040, h: 1200 };   // crop of the 2560x1440 frame around the robot
-        const path = n => `frames/frame%20(${n}).png`;   // files are named "frame (N).png" (with a space)
+        // If optimize-frames.py has been run, frames/web/frame-N.webp exist (already cropped to the
+        // robot, ~20-40x smaller). They are detected automatically; otherwise the original PNGs are used.
+        let useWeb = false;
+        const pngPath = n => `frames/frame%20(${n}).png`;   // files are named "frame (N).png" (with a space)
+        const webPath = n => `frames/web/frame-${n}.webp`;
+        const path = n => useWeb ? webPath(n) : pngPath(n);
         const imgs = new Array(TOTAL + 1);
         const ok = new Uint8Array(TOTAL + 1);
 
@@ -1338,7 +1343,8 @@
             if (!f || f === drawn) return;
             drawn = f;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(imgs[f], SRC.x, SRC.y, SRC.w, SRC.h, 0, 0, canvas.width, canvas.height);
+            if (useWeb) ctx.drawImage(imgs[f], 0, 0, canvas.width, canvas.height);   // WebP is pre-cropped
+            else ctx.drawImage(imgs[f], SRC.x, SRC.y, SRC.w, SRC.h, 0, 0, canvas.width, canvas.height);
         }
 
         // load key poses first, then everything else in small batches
@@ -1459,7 +1465,14 @@
 
         window.addEventListener('resize', fit, { passive: true });
         if (window.ResizeObserver) new ResizeObserver(fit).observe(canvas);
-        fit(); load(); requestAnimationFrame(tick);
+        // probe for the optimized frames first, then start loading
+        (function detect() {
+            const probe = new Image();
+            probe.onload = () => { useWeb = true; load(); };
+            probe.onerror = () => { useWeb = false; load(); };
+            probe.src = webPath(1);
+        })();
+        fit(); requestAnimationFrame(tick);
     })();
 
 
