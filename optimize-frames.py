@@ -15,10 +15,13 @@ How it is connected to the website
   2. Images  images/*.png|jpg over 300 KB  ->  .webp
        References in index.html, index.css, theme-refresh.css and index.js are
        rewritten to the .webp automatically (favicons are left alone).
-  3. Videos  *.mp4  ->  *-opt.mp4  (no audio, H.264, faststart)
+  3. Videos  *.mp4  ->  *-opt.mp4  (no audio, H.264, faststart, max 1920px wide, max 30 fps)
        index.html is updated to use the optimized file, but only if it is smaller.
+       A smaller, 30 fps video decodes faster, starts playing sooner and scrolls smoother.
 
-Video step needs ffmpeg (`brew install ffmpeg` / `sudo apt install ffmpeg`).
+Video step needs ffmpeg. Easiest way on any system (no big install):
+    pip install imageio-ffmpeg
+or install ffmpeg itself (`winget install Gyan.FFmpeg` / `brew install ffmpeg`).
 """
 import argparse
 import re
@@ -37,6 +40,8 @@ SITE_FILES = ["index.html", "index.css", "theme-refresh.css", "index.js"]
 FRAME_SCALE = 0.75            # output size = crop size x this (1040x1200 -> 780x900)
 SOURCE_SIZE = (2560, 1440)    # size of the original frames
 IMG_MIN_BYTES = 300 * 1024
+MAX_VIDEO_WIDTH = 1920        # wider videos are scaled down to this
+MAX_VIDEO_FPS = 30            # faster videos are reduced to this
 DEFAULTS = dict(total=120, x=760, y=150, w=1040, h=1200)
 
 
@@ -132,9 +137,31 @@ def optimize_images(force):
     rewrite_refs(pairs)
 
 
+def find_ffmpeg():
+    exe = shutil.which("ffmpeg")
+    if exe:
+        return exe
+    try:
+        import imageio_ffmpeg  # pip install imageio-ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return None
+
+
+def probe_video(ffmpeg, path):
+    """Return (width, fps) of the first video stream, or (0, 0) if it can't be read."""
+    r = subprocess.run([ffmpeg, "-hide_banner", "-i", str(path)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    line = next((l for l in r.stderr.decode("utf-8", "replace").splitlines() if "Video:" in l), "")
+    size = re.findall(r"\b(\d{2,5})x(\d{2,5})\b", line)
+    fps = re.search(r"([\d.]+)\s*fps", line)
+    return (int(size[-1][0]) if size else 0), (float(fps.group(1)) if fps else 0.0)
+
+
 def optimize_videos(force):
-    if not shutil.which("ffmpeg"):
-        print("Skipping video optimization: ffmpeg not found in PATH.")
+    ffmpeg = find_ffmpeg()
+    if not ffmpeg:
+        print("Skipping video optimization: ffmpeg not found.\n"
+              "  Easiest fix:  pip install imageio-ffmpeg   (then run this script again)")
         return
     pairs = []
     for v in sorted(ROOT.glob("*.mp4")):
@@ -142,14 +169,26 @@ def optimize_videos(force):
             continue
         opt = v.with_name(v.stem + "-opt.mp4")
         if force or not up_to_date(opt, v):
-            print(f"Optimizing video: {v.name} ({v.stat().st_size // 1024} KB)...")
-            cmd = ["ffmpeg", "-y", "-i", str(v), "-vcodec", "libx264", "-crf", "28", "-preset", "slow",
-                   "-pix_fmt", "yuv420p", "-an", "-movflags", "+faststart", str(opt)]
-            r = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            if r.returncode != 0:
-                print(f"Failed to optimize {v.name}: {r.stderr.decode('utf-8', 'replace')[-500:]}")
-                opt.unlink(missing_ok=True)
-                continue
+            width, fps = probe_video(ffmpeg, v)
+            vf = []
+            if width > MAX_VIDEO_WIDTH:
+                vf.append(f"scale={MAX_VIDEO_WIDTH}:-2")
+            if fps > MAX_VIDEO_FPS + 0.5:
+                vf.append(f"fps={MAX_VIDEO_FPS}")
+            print(f"Optimizing video: {v.name} ({v.stat().st_size // 1024} KB, {width}px wide, {fps:g} fps)"
+                  f"{' -> ' + ', '.join(vf) if vf else ''} ...")
+            tmp = opt.with_name(opt.stem + ".part.mp4")
+            cmd = [ffmpeg, "-y", "-i", str(v)] + (["-vf", ",".join(vf)] if vf else []) + [
+                "-c:v", "libx264", "-crf", "28", "-preset", "fast", "-pix_fmt", "yuv420p",
+                "-an", "-movflags", "+faststart", str(tmp)]
+            try:
+                r = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                if r.returncode != 0:
+                    print(f"Failed to optimize {v.name}: {r.stderr.decode('utf-8', 'replace')[-500:]}")
+                    continue
+                tmp.replace(opt)
+            finally:
+                tmp.unlink(missing_ok=True)   # never leave a half-written file behind (even on Ctrl+C)
         if opt.stat().st_size >= v.stat().st_size:
             print(f"{opt.name} is not smaller than {v.name}; keeping the original.")
             opt.unlink(missing_ok=True)

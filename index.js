@@ -404,10 +404,8 @@
         const loader = document.getElementById('loader');
         function release() {
             lenis.start(); lenis.resize();
-            document.querySelectorAll('#skills-video, #contact-video').forEach(v => {
-                v.preload = 'auto';
-                const p = v.play(); if (p && p.catch) p.catch(() => { });
-            });
+            // (the background videos are no longer started here: each one now starts
+            // loading shortly before its section is reached, see "VIDEO PARALLAX" below)
             // the page "arrives": navbar, hero and text reveals are gated on this moment
             setTimeout(() => { document.documentElement.classList.add('is-ready'); readyResolve(); }, 150);
         }
@@ -1147,6 +1145,28 @@
                 l.lastOffset = offset;
                 l.video.style.transform = tf;
             }
+        }
+
+        // PERFORMANCE: both <video> tags point at the same big file. Starting both at page load made
+        // the browser download and decode it twice while the page was still loading. Now each video
+        // only starts fetching about one screen BEFORE its section is reached (the contact video,
+        // at the very bottom, waits until the visitor is nearly there), then plays while near.
+        function warm(v) {
+            if (v.preload === 'auto') return;
+            v.preload = 'auto';
+            if (v.readyState === 0 && v.paused) v.load();   // Firefox/Safari don't resume a 'none' video on their own
+        }
+        if (!('IntersectionObserver' in window)) {
+            layers.forEach(l => { warm(l.video); const p = l.video.play(); if (p && p.catch) p.catch(() => { }); });
+        } else {
+            const warmIO = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (!e.isIntersecting) return;
+                    const l = layers.find(x => x.section === e.target);
+                    if (l) { warm(l.video); warmIO.unobserve(e.target); }
+                });
+            }, { rootMargin: '100% 0px' });
+            layers.forEach(l => warmIO.observe(l.section));
         }
 
         if ('IntersectionObserver' in window) {
