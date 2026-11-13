@@ -50,7 +50,7 @@
     <header id="header">
         <nav class="nav" aria-label="Main navigation">
             <a href="#home" class="logo">
-                <div class="logo-icon"><img src="images/Logo.png" alt="JNK logo"></div>
+                <div class="logo-icon"><img src="images/Logo.webp" alt="JNK logo"></div>
                 <span class="logo-text">Jamshid</span>
             </a>
             <ul class="nav-links">
@@ -74,7 +74,7 @@
     </header>
 
     <!-- ===== MOBILE MENU ===== -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" data-lenis-prevent>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -121,7 +121,7 @@
 
                 <div class="hero-portrait" data-cursor="Touch" data-mouse="16" data-parallax="0.2" data-parallax-scroll>
                     <div class="magnet-wrapper" id="portrait-wrapper">
-                        <img id="portrait-img" src="images/ai.png" alt="Jamshid N K" crossorigin="anonymous">
+                        <img id="portrait-img" src="images/ai.webp" alt="Jamshid N K" crossorigin="anonymous">
                         <canvas id="portrait-canvas"></canvas>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
                             <li><i class="fas fa-check"></i>Responsive product showcase</li>
                         </ul>
                         <div class="svc-actions">
-                            <a class="svc-demo" data-cursor="Open" href="https://falcon-kellys.com" target="_blank"
+                            <a class="svc-demo" data-cursor="Open" href="https://falconkellys.pythonanywhere.com/" target="_blank"
                                 rel="noopener">View live demo <i class="fas fa-arrow-up-right-from-square"></i></a>
                         </div>
                     </div>
@@ -672,7 +672,7 @@
 
         <div class="ft-inner">
             <div class="ft-col ft-col-brand" data-scrub>
-                <a href="#home" class="ft-brand"><img src="images/Logo.png" alt="JNK logo"><span>Jamshid</span></a>
+                <a href="#home" class="ft-brand"><img src="images/Logo.webp" alt="JNK logo"><span>Jamshid</span></a>
                 <p class="ft-about" data-split-words>Full stack web developer building fast, modern and responsive
                     websites that look
                     sharp and help your business grow.</p>
@@ -733,7 +733,10 @@
     </footer>
 
 
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <!-- Lenis 1.1.18 (MIT) is self-hosted so smooth scroll never depends on a third-party CDN;
+         if lenis.min.js is missing, jsDelivr is used instead. -->
+    <script src="lenis.min.js"></script>
+    <script>window.Lenis || document.write('<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"><\/script>');</script>
     <script src="index.js"></script>
 
 </body>

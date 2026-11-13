@@ -358,12 +358,11 @@
     // scrolling (it's the smoothest option on phones).
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Exact feel of lenis.dev: time-based glide (duration + exponential ease-out)
-    // instead of a plain lerp, so every wheel tick travels in one long, silky
-    // deceleration. (When `lerp` is set, Lenis ignores duration/easing — that
-    // is why the old setting felt choppy/short.)
-    // If the Lenis CDN is blocked/offline, fall back to a tiny native-scroll
-    // shim with the same API so the rest of the page keeps working.
+    // Feel of lenis.dev: Lenis's own default, a damped glide (lerp 0.1). It is
+    // frame-rate independent and has no restart/snap at the end of a glide.
+    // Lenis is loaded from lenis.min.js (same origin, with a jsDelivr fallback
+    // in index.html). If both fail, fall back to a tiny native-scroll shim with
+    // the same API so the rest of the page keeps working.
     function createNativeScroller() {
         const root = document.documentElement;
         return {
@@ -383,8 +382,7 @@
 
     const lenis = (typeof Lenis !== 'undefined')
         ? new Lenis({
-            duration: 1.15,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),   // lenis.dev default curve
+            lerp: 0.1,                       // lenis.dev default
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: !prefersReducedMotion,
@@ -392,7 +390,7 @@
             touchMultiplier: 1.5,
             syncTouch: false,                // native touch momentum = smoothest on phones
         })
-        : createNativeScroller();
+        : (console.warn('Lenis failed to load: smooth scrolling is disabled.'), createNativeScroller());
     window.lenis = lenis;
 
     // Motion is progressive: elements are only pre-hidden once JS has confirmed it is running.
@@ -925,7 +923,7 @@
                 if (this.img.complete && this.img.naturalWidth > 0) { this.setupFromImage(); }
                 else { this.img.onload = () => this.setupFromImage(); }
                 this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-                this.canvas.addEventListener('mouseleave', () => { this.mouse.x = undefined; this.mouse.y = undefined; });
+                this.canvas.addEventListener('mouseleave', () => { this.mouse.x = undefined; this.mouse.y = undefined; this.wake(); });
                 window.addEventListener('resize', this.debouncedResize.bind(this));
             }
             debouncedResize() {
@@ -972,19 +970,26 @@
                 const sx = this.canvas.width / rect.width, sy = this.canvas.height / rect.height;
                 this.mouse.x = Math.min(Math.max((e.clientX - rect.left) * sx, 0), this.canvas.width);
                 this.mouse.y = Math.min(Math.max((e.clientY - rect.top) * sy, 0), this.canvas.height);
+                this.wake();
             }
+            // PERFORMANCE: the loop used to run forever, re-simulating and re-drawing every
+            // particle 60x/sec even when nothing moved. It now sleeps once the swarm is back
+            // at rest (the last frame stays on the canvas) and wakes on pointer activity.
+            wake() { if (!this.animationFrame) this.startAnimation(); }
+            // returns true while anything is still moving (or the pointer is on the portrait)
             updateParticles() {
                 const hasMouse = this.mouse.x !== undefined;
                 const radius = this.attractionRadius;
+                let awake = hasMouse;
                 for (const p of this.particles) {
                     if (hasMouse) {
                         const dx = this.mouse.x - p.x, dy = this.mouse.y - p.y;
                         const dist = Math.hypot(dx, dy);
                         if (dist < radius) {
-                            const force = (radius - dist) / radius;
-                            const ang = Math.atan2(dy, dx);
-                            p.vx += Math.cos(ang) * force * 7.2;
-                            p.vy += Math.sin(ang) * force * 7.2;
+                            // dx/dist == cos(atan2) and dy/dist == sin(atan2): same result, no trig
+                            const f = (radius - dist) / radius * 7.2 / (dist || 1);
+                            p.vx += dx * f;
+                            p.vy += dy * f;
                         } else {
                             p.vx += (p.origX - p.x) * this.returnStrength;
                             p.vy += (p.origY - p.y) * this.returnStrength;
@@ -997,7 +1002,10 @@
                     p.vx *= 0.84; p.vy *= 0.84;
                     p.x = Math.min(Math.max(p.x, -2), this.canvas.width + 2);
                     p.y = Math.min(Math.max(p.y, -2), this.canvas.height + 2);
+                    if (!awake && (Math.abs(p.vx) > 0.02 || Math.abs(p.vy) > 0.02 ||
+                        Math.abs(p.x - p.origX) > 0.02 || Math.abs(p.y - p.origY) > 0.02)) awake = true;
                 }
+                return awake;
             }
             draw() {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -1009,8 +1017,8 @@
                 }
             }
             animate() {
-                this.updateParticles(); this.draw();
-                this.animationFrame = requestAnimationFrame(() => this.animate());
+                const awake = this.updateParticles(); this.draw();
+                this.animationFrame = awake ? requestAnimationFrame(() => this.animate()) : null;
             }
             startAnimation() {
                 if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
@@ -1303,6 +1311,8 @@
         const cards = Array.from(stage.querySelectorAll('.sk-card'));
         const ctx = canvas.getContext('2d');
 
+        // optimize-frames.py READS the next two lines (TOTAL and SRC) so the crop and frame count
+        // stay in sync with this file. Edit the values freely, but keep each on one line, same shape.
         const TOTAL = 120;
         const SRC = { x: 760, y: 150, w: 1040, h: 1200 };   // crop of the 2560x1440 frame around the robot
         // If optimize-frames.py has been run, frames/web/frame-N.webp exist (already cropped to the
